@@ -11,6 +11,7 @@ public class NewBehaviourScript : MonoBehaviour {
   public Sprite tilt_3;
 
   public Transform exhaust;
+  public Transform projectile;
 
   public float friction;
 
@@ -29,12 +30,19 @@ public class NewBehaviourScript : MonoBehaviour {
 	  sr.sprite = tilt_0;
     last_rads = 0f;
 	}
+  
+  void Update()
+  {
+
+  }
+
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 
 	  float move = Input.GetAxis("Horizontal");
     float thrust = Input.GetAxis("Vertical");
+    bool fire = Input.GetButton("Fire1");
 
     float angle;
     int angle_index;
@@ -95,6 +103,31 @@ public class NewBehaviourScript : MonoBehaviour {
     rigidbody2D.velocity = new Vector2 (dx , dy );
 
 
+
+    if( fire )
+      {
+
+        for( int i = -1; i <= 1; i++ )
+          {
+            float mod = (i*Mathf.PI/36);
+            float a = (float)Math.Cos(rads+mod)*16;
+            float b = (float)Math.Sin(rads+mod)*16;
+
+            Vector2 pvel = new Vector2(a,b);
+
+            Vector3 ppos = new Vector3(Mathf.Cos(rads+(4*mod))/4,
+                                       Mathf.Sin(rads+(4*mod))/4,
+                                       0) + transform.position;
+
+            Transform t= (Transform)Instantiate( projectile, 
+                                                 ppos,
+                                                 transform.rotation );
+            t.rigidbody2D.velocity = pvel + rigidbody2D.velocity;
+            
+          }
+
+        
+      }
 
     /* bounding box logic
     Vector3 pos = rigidbody2D.position;
