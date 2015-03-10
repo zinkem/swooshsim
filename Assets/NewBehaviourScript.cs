@@ -12,6 +12,8 @@ public class NewBehaviourScript : MonoBehaviour {
 
   public Transform exhaust;
   public Transform projectile;
+  public Transform star;
+  public Transform path;
 
   public float friction;
 
@@ -21,14 +23,28 @@ public class NewBehaviourScript : MonoBehaviour {
   private SpriteRenderer sr;
 
   private float orientation;
-  private float last_rads;
 
 	// Use this for initialization
 	void Start () {
     sr = GetComponent<SpriteRenderer>();
     orientation = 0f;
 	  sr.sprite = tilt_0;
-    last_rads = 0f;
+
+    for( int i = 0; i < 200; i++)
+      {
+        float a = UnityEngine.Random.value*200-100;
+        float b = UnityEngine.Random.value*200-100;
+        float c = Mathf.Floor(UnityEngine.Random.value*3)*-10;
+
+        Transform o = (Transform)Instantiate( star, new Vector3(a, b, c), transform.rotation);
+
+        Gravity g = o.GetComponent<Gravity>();
+        g.player = this.transform;
+
+        o.rigidbody2D.velocity = new Vector2( (float)UnityEngine.Random.value-.5f,
+                                              (float)UnityEngine.Random.value-.5f )*5;
+      }
+
 	}
   
   void Update()
@@ -40,14 +56,9 @@ public class NewBehaviourScript : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-	  float move = Input.GetAxis("Horizontal");
+	  float move = 1;//Input.GetAxis("Horizontal");
     float thrust = Input.GetAxis("Vertical");
-    bool fire = Input.GetButton("Fire1");
-
-    float angle;
-    int angle_index;
-
-    last_rads = (float)(orientation * Math.PI / 180);
+    bool fire = true; //Input.GetButton("Fire1");
 
     orientation -= (move*3);
 
@@ -86,6 +97,8 @@ public class NewBehaviourScript : MonoBehaviour {
     float slow = 1-(friction*friction);
     float dx = slow*rigidbody2D.velocity.x;
     float dy = slow*rigidbody2D.velocity.y;// - 1.5f;
+
+    Instantiate( path, transform.position, transform.rotation );
 
     if( thrust > 0 ){
       dx += (float)Math.Cos(rads)/2;
