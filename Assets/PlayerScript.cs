@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 
-public class NewBehaviourScript : MonoBehaviour {
+public class PlayerScript : MonoBehaviour {
 
   public Sprite tilt_0;
   public Sprite tilt_1;

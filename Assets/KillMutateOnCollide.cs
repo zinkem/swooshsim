@@ -3,6 +3,9 @@ using System.Collections;
 
 public class KillMutateOnCollide : MonoBehaviour {
 
+  public int life;
+  public Transform replace;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -15,15 +18,11 @@ public class KillMutateOnCollide : MonoBehaviour {
 
   void OnCollisionEnter2D(Collision2D other)
   {
-      print ( "wooot !");
-      Destroy(gameObject);
-      Destroy(other.gameObject);
+      life--;
 
-      if (other.gameObject.tag == "mutable"){
-
-
-      } else {
-          //Destroy(gameObject);
+      if( life <= 0 ){
+          Destroy(gameObject);
+          Instantiate(replace, transform.position, transform.rotation);
       }
   }
 
