@@ -30,7 +30,7 @@ public class PlayerScript : MonoBehaviour {
     orientation = 0f;
 	  sr.sprite = tilt_0;
 
-    for( int i = 0; i < 75; i++)
+    for( int i = 0; i < 225; i++)
       {
         float a = UnityEngine.Random.value*200-100;
         float b = UnityEngine.Random.value*200-100;
@@ -60,7 +60,10 @@ public class PlayerScript : MonoBehaviour {
     float thrust = Input.GetAxis("Vertical");
     bool fire = Input.GetButton("Fire1");
 
-    orientation -= (move*3);
+    float rotspeed = 3;
+    if( !fire ) rotspeed += 3*(1-thrust);
+
+    orientation -= (move*rotspeed);
 
     while ( orientation < 0 )
       orientation+= 360;
@@ -70,7 +73,7 @@ public class PlayerScript : MonoBehaviour {
     sr.sprite = tilt_3;
 
     float rads = (float)(orientation * Math.PI / 180);
-    transform.Rotate(0, 0, -move*3);
+    transform.Rotate(0, 0, -move*rotspeed);
 
     int index = (((int)orientation + 15) / 30)%12;
 

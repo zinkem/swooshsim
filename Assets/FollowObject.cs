@@ -28,7 +28,11 @@ public class FollowObject : MonoBehaviour {
     velx = (velx/magsq)*velocity;
     vely = (vely/magsq)*velocity;
 
-    rigidbody2D.velocity = new Vector2 ( velx, vely );
+    if( magsq >5 )
+      {
+        rigidbody2D.velocity = new Vector2 ( velx, vely );        
+      }
+
 
     float a;
     float b;

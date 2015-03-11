@@ -19,10 +19,9 @@ public class KillMutateOnCollide : MonoBehaviour {
   void OnCollisionEnter2D(Collision2D other)
   {
       life--;
-
+      print("boomy " + life);
       if( life <= 0 ){
           Destroy(gameObject);
-
           Instantiate(replace, transform.position, transform.rotation);
       }
   }

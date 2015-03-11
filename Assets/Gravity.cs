@@ -5,6 +5,7 @@ public class Gravity : MonoBehaviour {
 
   public Transform player;
 
+  public float intensity;
 
 	// Use this for initialization
 	void Start () {
@@ -30,7 +31,7 @@ public class Gravity : MonoBehaviour {
     if( mag >= 0.01 )
       {
         player.rigidbody2D.velocity = player.rigidbody2D.velocity + 
-          new Vector2( fx, fy );        
+          new Vector2( fx*intensity, fy*intensity );        
       }
 
 
