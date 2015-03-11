@@ -8,6 +8,8 @@ public class BugHole : MonoBehaviour {
   public Transform bug;
   public Transform player;
 
+  public HUDscript hud;
+
   float accumulator;
 
 	// Use this for initialization
@@ -26,8 +28,10 @@ public class BugHole : MonoBehaviour {
         Transform t = (Transform)Instantiate( bug, transform.position, transform.rotation );
 
         FollowObject fo = t.GetComponent<FollowObject>();
-
         fo.carrot = player;
+
+        KillMutateOnCollide km = t.GetComponent<KillMutateOnCollide>();
+        km.hud = hud;
       }
     
 	}
