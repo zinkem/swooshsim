@@ -33,7 +33,7 @@ public class Gravity : MonoBehaviour {
     float fx = distx/mag;
     float fy = disty/mag;
 
-    if( mag >= 0.01 )
+    if( mag >= 0.1 )
       {
         player.rigidbody2D.velocity = player.rigidbody2D.velocity + 
           new Vector2( fx*intensity, fy*intensity );        
