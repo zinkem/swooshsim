@@ -30,7 +30,7 @@ public class NewBehaviourScript : MonoBehaviour {
     orientation = 0f;
 	  sr.sprite = tilt_0;
 
-    for( int i = 0; i < 200; i++)
+    for( int i = 0; i < 75; i++)
       {
         float a = UnityEngine.Random.value*200-100;
         float b = UnityEngine.Random.value*200-100;
@@ -56,9 +56,9 @@ public class NewBehaviourScript : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-	  float move = 1;//Input.GetAxis("Horizontal");
+	  float move = Input.GetAxis("Horizontal");
     float thrust = Input.GetAxis("Vertical");
-    bool fire = true; //Input.GetButton("Fire1");
+    bool fire = Input.GetButton("Fire1");
 
     orientation -= (move*3);
 
