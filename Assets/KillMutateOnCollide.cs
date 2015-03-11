@@ -22,6 +22,7 @@ public class KillMutateOnCollide : MonoBehaviour {
 
       if( life <= 0 ){
           Destroy(gameObject);
+
           Instantiate(replace, transform.position, transform.rotation);
       }
   }
