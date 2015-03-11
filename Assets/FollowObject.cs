@@ -12,7 +12,10 @@ public class FollowObject : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
+
+    if( carrot == null )
+      return;
 
     float currx = transform.position.x;
     float curry = transform.position.y;

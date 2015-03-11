@@ -19,7 +19,6 @@ public class PlayerScript : MonoBehaviour {
 
   private Sprite[] sprite_array;
 
-
   private SpriteRenderer sr;
 
   private float orientation;
@@ -186,6 +185,11 @@ public class PlayerScript : MonoBehaviour {
     Vector3 theScale = transform.localScale;
     theScale.y *= -1;
     transform.localScale = theScale;
+  }
+
+  void OnDestroy()
+  {
+
   }
 
 }

@@ -14,6 +14,11 @@ public class Gravity : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+    
+    if( player == null )
+      return;
+
+
     float wellx = transform.position.x;
     float welly = transform.position.y;
 

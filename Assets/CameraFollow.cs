@@ -12,6 +12,10 @@ public class CameraFollow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+    
+    if( carrot == null )
+      return;
+
     float destx = carrot.position.x;
     float desty = carrot.position.y;
 
