@@ -5,6 +5,7 @@ public class FollowObject : MonoBehaviour {
 
   public Transform carrot;
   public float velocity;
+  public float stable_dist;
 
 	// Use this for initialization
 	void Start () {
@@ -28,14 +29,20 @@ public class FollowObject : MonoBehaviour {
 
     float magsq = Mathf.Sqrt(velx*velx + vely*vely);
 
+    if( magsq > 30 )
+      {
+        transform.position = carrot.position + 
+          new Vector3( -.8f*velx, -.8f*vely, 0f );
+        return;
+      }
+
     velx = (velx/magsq)*velocity;
     vely = (vely/magsq)*velocity;
 
-    if( magsq >5 )
-      {
-        rigidbody2D.velocity = new Vector2 ( velx, vely );        
-      }
-
+    if( magsq > stable_dist)
+      rigidbody2D.velocity = new Vector2 ( velx, vely );        
+    else
+      rigidbody2D.velocity = rigidbody2D.velocity*.9f;
 
     float a;
     float b;

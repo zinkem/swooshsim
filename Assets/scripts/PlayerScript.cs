@@ -23,13 +23,17 @@ public class PlayerScript : MonoBehaviour {
 
   private float orientation;
 
+  public int energy;
+
 	// Use this for initialization
 	void Start () {
     sr = GetComponent<SpriteRenderer>();
     orientation = 0f;
 	  sr.sprite = tilt_0;
 
-    for( int i = 0; i < 225; i++)
+    energy = 1000;
+
+    for( int i = 0; i < 100; i++)
       {
         float a = UnityEngine.Random.value*200-100;
         float b = UnityEngine.Random.value*200-100;
@@ -41,7 +45,7 @@ public class PlayerScript : MonoBehaviour {
         g.player = this.transform;
 
         o.rigidbody2D.velocity = new Vector2( (float)UnityEngine.Random.value-.5f,
-                                              (float)UnityEngine.Random.value-.5f )*5;
+                                              (float)UnityEngine.Random.value-.5f );
       }
 
 	}
@@ -60,7 +64,7 @@ public class PlayerScript : MonoBehaviour {
     bool fire = Input.GetButton("Fire1");
 
     float rotspeed = 3;
-    if( !fire ) rotspeed += 3*(1-thrust);
+    if( !fire ) rotspeed += 7*(1-thrust);
 
     orientation -= (move*rotspeed);
 
@@ -102,9 +106,10 @@ public class PlayerScript : MonoBehaviour {
 
     Instantiate( path, transform.position, transform.rotation );
 
-    if( thrust > 0 ){
-      dx += (float)Math.Cos(rads)/2;
-      dy += (float)Math.Sin(rads)/2;// - 1.5f;
+    if( thrust > 0 && energy > 5){
+      energy -= 5;
+      dx += thrust*(float)Math.Cos(rads)/2;
+      dy += thrust*(float)Math.Sin(rads)/2;// - 1.5f;
       Transform t = (Transform)Instantiate( exhaust, transform.position, transform.rotation );
       t.rigidbody2D.velocity = new Vector2 ((float)-Math.Cos(rads)/2,
                                             (float)-Math.Sin(rads)/2 );
@@ -113,6 +118,9 @@ public class PlayerScript : MonoBehaviour {
       theScale *= thrust;
       t.transform.localScale = theScale;
 
+    } else {
+      if( energy < 1000)
+        energy += 1;
     }
 
     rigidbody2D.velocity = new Vector2 (dx , dy );

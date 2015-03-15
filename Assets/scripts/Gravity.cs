@@ -33,12 +33,21 @@ public class Gravity : MonoBehaviour {
     float fx = distx/mag;
     float fy = disty/mag;
 
-    if( mag >= 0.1 )
-      {
-        player.rigidbody2D.velocity = player.rigidbody2D.velocity + 
-          new Vector2( fx*intensity, fy*intensity );        
-      }
 
+    player.rigidbody2D.velocity = player.rigidbody2D.velocity + 
+      new Vector2( fx*intensity, fy*intensity );        
+
+    float pspeed =  Mathf.Sqrt( player.rigidbody2D.velocity.x
+                                *player.rigidbody2D.velocity.x +
+                                player.rigidbody2D.velocity.y
+                                * player.rigidbody2D.velocity.y );
+
+    if( pspeed > 50 )
+      {
+        player.rigidbody2D.velocity = player.rigidbody2D.velocity * 50/pspeed;
+      }
+                    
+                    
 
 	}
 }

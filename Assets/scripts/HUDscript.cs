@@ -8,7 +8,9 @@ public class HUDscript : MonoBehaviour {
   public GUIText life;
   public Transform player;
 
-  int score;
+  public Transform energy_bar;
+
+  public int score;
 
   void populateLifeText()
   {
@@ -18,6 +20,15 @@ public class HUDscript : MonoBehaviour {
     } else {
       life.text ="press space to play again";            
     }
+  }
+
+  void scaleEnergyBar()
+  {
+    if( player)
+      {
+        int e = player.GetComponent<PlayerScript>().energy;
+        energy_bar.transform.localScale = new Vector2(4*(e/100), 4);
+      }
   }
 
   public void registerKill(int val)
@@ -35,6 +46,7 @@ public class HUDscript : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
     populateLifeText();
+    scaleEnergyBar();
     board.text = " "+score+" ";
 	}
 }

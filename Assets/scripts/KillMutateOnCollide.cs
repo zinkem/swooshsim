@@ -24,17 +24,17 @@ public class KillMutateOnCollide : MonoBehaviour {
 
   void decrementLife(){
     life--;
-    print(life+" life");
   }
 
   void OnCollisionEnter2D(Collision2D other)
   {
+    if( other.gameObject.tag != gameObject.tag )
       decrementLife();
   }
 
 
   void OnDestroy(){
-      if( hud ){
+      if( hud && life <= 0 ){
           hud.registerKill(pointval);
       }
 

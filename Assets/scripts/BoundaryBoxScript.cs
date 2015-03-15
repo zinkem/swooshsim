@@ -14,22 +14,30 @@ public class BoundaryBoxScript : MonoBehaviour {
 	void Update () {
     float x = transform.position.x;
     float y = transform.position.y;
+    
+    float dx = rigidbody2D.velocity.x;
+    float dy = rigidbody2D.velocity.y;
 
     if( x > bound ) 
       {
-        x -= bound*2;
+        rigidbody2D.velocity = new Vector2(-dx, dy);
+        x = bound;
       } 
     if ( x <= -bound )
       {
-        x += bound*2;
+        rigidbody2D.velocity = new Vector2(-dx, dy);
+        x = -bound;
+
       }
     if( y > bound ) 
       {
-        y -= bound*2;
+        rigidbody2D.velocity = new Vector2(dx, -dy);
+        y = bound;
       } 
     if ( y <= -bound )
       {
-        y += bound*2;
+        rigidbody2D.velocity = new Vector2(dx, -dy);
+        y = -bound;
       }
 
     transform.position = new Vector3(x, y, transform.position.z);
