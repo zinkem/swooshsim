@@ -8,6 +8,8 @@ public class KillMutateOnCollide : MonoBehaviour {
   public HUDscript hud;
   public int pointval;
 
+  AudioSource deathrattle;
+
 	// Use this for initialization
 	void Start () {
 

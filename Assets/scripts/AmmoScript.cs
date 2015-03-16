@@ -3,9 +3,13 @@ using System.Collections;
 
 public class AmmoScript : MonoBehaviour {
 
+  public Transform pickupdust;
 
   void newPosition()
   {
+    Instantiate(pickupdust, transform.position, transform.rotation);
+
+
     float a = UnityEngine.Random.value*200-100;
     float b = UnityEngine.Random.value*200-100;
     float c = transform.position.z;

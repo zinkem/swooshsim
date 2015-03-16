@@ -27,6 +27,9 @@ public class PlayerScript : MonoBehaviour {
   public int energy;
   public int energyMax;
 
+  public float firedelay;
+  private int fire_count;
+
 	// Use this for initialization
 	void Start () {
     sr = GetComponent<SpriteRenderer>();
@@ -140,9 +143,12 @@ public class PlayerScript : MonoBehaviour {
 
 
 
-    if( fire )
+    
+    fire_count++;
+    if( fire && fire_count >= firedelay*60  )
       {
 
+        fire_count = 0;
         for( int i = -1; i <= 1; i++ )
           {
             float mod = (i*Mathf.PI/36);
