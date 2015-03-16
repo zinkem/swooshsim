@@ -26,9 +26,12 @@ public class PlayerScript : MonoBehaviour {
 
   public int energy;
   public int energyMax;
+  public int powcount;
 
   public float firedelay;
   private int fire_count;
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -38,6 +41,7 @@ public class PlayerScript : MonoBehaviour {
     
     energyMax = 1000;
     energy = energyMax;
+    powcount = 0;
 
     for( int i = 0; i < 100; i++)
       {

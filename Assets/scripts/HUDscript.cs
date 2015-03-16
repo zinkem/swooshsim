@@ -11,7 +11,9 @@ public class HUDscript : MonoBehaviour {
   public Transform energy_bar;
 
   public int score;
-
+  
+  int interest_counter;
+  
   void populateLifeText()
   {
     if( player ) {
@@ -48,5 +50,13 @@ public class HUDscript : MonoBehaviour {
     populateLifeText();
     scaleEnergyBar();
     board.text = " "+score+" ";
+
+    interest_counter++;
+
+    if( interest_counter >= 60 && player != null )
+      {
+        score *= (player.GetComponent<PlayerScript>().powcount+100)/100;
+        interest_counter = 0;
+      }
 	}
 }

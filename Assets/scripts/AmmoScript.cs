@@ -9,7 +9,6 @@ public class AmmoScript : MonoBehaviour {
   {
     Instantiate(pickupdust, transform.position, transform.rotation);
 
-
     float a = UnityEngine.Random.value*200-100;
     float b = UnityEngine.Random.value*200-100;
     float c = transform.position.z;
@@ -29,7 +28,7 @@ public class AmmoScript : MonoBehaviour {
     rigidbody2D.velocity = new Vector3 (0,0,0);
 	}
 
-  void OnCollisionStay2D(Collision2D other)
+  void OnCollisionEnter2D(Collision2D other)
   {
     transform.localScale = transform.localScale * 2.1f;
     if(transform.localScale.x > 2)
@@ -38,18 +37,12 @@ public class AmmoScript : MonoBehaviour {
 
         PlayerScript ps = other.gameObject.GetComponent<PlayerScript>();
 
-        if(ps)
-          {
+        if(ps){
             ps.energyMax += 100;
-
-          }
+            ps.powcount += 1;
+        }
 
       }
-  }
-
-  void OnCollisionExit2D(Collision2D other)
-  {
-    newPosition();
   }
 
 }
