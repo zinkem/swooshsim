@@ -9,6 +9,7 @@ public class BugHole : MonoBehaviour {
   public float wavepop;
   public Transform bug;
   public Transform player;
+  public Transform star;
 
   public HUDscript hud;
 
@@ -22,36 +23,71 @@ public class BugHole : MonoBehaviour {
     census = 0;
 	}
 	
+  void bugWave()
+  {
+    float score = (float)hud.score;
+
+    while( census <= wavepop * Mathf.Ceil((score+1)/5000) ) {
+
+      float rads = census*Mathf.PI/180;
+      rads *= 15;
+      Vector3 pos = new Vector3 ( Mathf.Cos(rads), Mathf.Sin(rads), 0)
+        *(Mathf.Floor(census/16)+1);
+      pos += transform.position;
+
+      Transform t = (Transform)Instantiate( bug, pos, transform.rotation );
+
+      FollowObject fo = t.GetComponent<FollowObject>();
+      fo.carrot = player;
+
+      KillMutateOnCollide km = t.GetComponent<KillMutateOnCollide>();
+      km.hud = hud;            
+
+      census += 1;
+
+    }
+    
+  }
+
+
+  void starWave()
+  {
+    
+    for( int i = 0; i < wavepop/4; i++)
+      {
+        float a = Mathf.Cos(UnityEngine.Random.value*Mathf.PI*2)*10
+          +player.transform.position.x;
+        float b = Mathf.Sin(UnityEngine.Random.value*Mathf.PI*2)*10
+          +player.transform.position.y;
+
+        Transform o = (Transform)Instantiate( star, new Vector3(a, b, -1f), transform.rotation);
+
+        FollowObject fo = o.GetComponent<FollowObject>();
+        fo.carrot = player;
+
+        Gravity g = o.GetComponent<Gravity>();
+        g.player = player;
+
+        o.rigidbody2D.velocity = new Vector2( (float)UnityEngine.Random.value-.5f,
+                                              (float)UnityEngine.Random.value-.5f );
+      }
+
+  }
+
 	// Update is called once per frame
 	void FixedUpdate () {
 	
-    float score = (float)hud.score;
-
     if( player )
       accumulator += 1;
 
     if( accumulator >= 60*rate )
       {
-        while( census <= wavepop * Mathf.Ceil((score+1)/5000) ) {
 
-          float rads = census*Mathf.PI/180;
-          rads *= 15;
-          Vector3 pos = new Vector3 ( Mathf.Cos(rads), Mathf.Sin(rads), 0)
-            *(Mathf.Floor(census/16)+1);
-          pos += transform.position;
-
-          Transform t = (Transform)Instantiate( bug, pos, transform.rotation );
-
-          FollowObject fo = t.GetComponent<FollowObject>();
-          fo.carrot = player;
-
-          KillMutateOnCollide km = t.GetComponent<KillMutateOnCollide>();
-          km.hud = hud;            
-
-          census += 1;
-
+        if( UnityEngine.Random.value > .1 ) {
+          bugWave();            
+        } else  {
+          starWave();                
         }
-
 
         accumulator = 0;              
         census = 0;

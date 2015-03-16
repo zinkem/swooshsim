@@ -43,28 +43,18 @@ public class PlayerScript : MonoBehaviour {
     energy = energyMax;
     powcount = 0;
 
-    for( int i = 0; i < 100; i++)
+    for( int i = 0; i < 10; i++)
       {
-        float a = UnityEngine.Random.value*200-100;
-        float b = UnityEngine.Random.value*200-100;
-        float c = Mathf.Floor(UnityEngine.Random.value*3)*-10;
-
-        Transform o = (Transform)Instantiate( star, new Vector3(a, b, c), transform.rotation);
-
-        Gravity g = o.GetComponent<Gravity>();
-        g.player = this.transform;
-
-        o.rigidbody2D.velocity = new Vector2( (float)UnityEngine.Random.value-.5f,
-                                              (float)UnityEngine.Random.value-.5f );
-      }
-
-    for( int i = 0; i < 100; i++)
-      {
-        float a = UnityEngine.Random.value*400-200;
-        float b = UnityEngine.Random.value*400-200;
+        float a = UnityEngine.Random.value*40-20+transform.position.x;
+        float b = UnityEngine.Random.value*40-20+transform.position.y;
         float c = -1;
 
         Transform o = (Transform)Instantiate( ammo, new Vector3(a, b, c), transform.rotation);
+        AmmoScript am = o.GetComponent<AmmoScript>();
+        am.player = this.transform;
+
+        Gravity gv = o.GetComponent<Gravity>();
+        gv.player = this.transform;
 
       }
 
@@ -75,6 +65,15 @@ public class PlayerScript : MonoBehaviour {
 
   }
 
+  public void incMaxEnergy(int x)
+  {
+    energyMax += x;
+  }
+
+  public void incLife(int x)
+  {
+    gameObject.GetComponent<KillMutateOnCollide>().life++;
+  }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -126,10 +125,9 @@ public class PlayerScript : MonoBehaviour {
 
     Instantiate( path, transform.position, transform.rotation );
 
-    if( thrust > 0 && energy > 100){
-      energy -= 10;
-      dx += thrust*(float)Math.Cos(rads)/2;
-      dy += thrust*(float)Math.Sin(rads)/2;// - 1.5f;
+    if( thrust > 0 ){
+      dx += thrust*(float)Math.Cos(rads)/4;
+      dy += thrust*(float)Math.Sin(rads)/4;// - 1.5f;
       Transform t = (Transform)Instantiate( exhaust, transform.position, transform.rotation );
       t.rigidbody2D.velocity = new Vector2 ((float)-Math.Cos(rads)/2,
                                             (float)-Math.Sin(rads)/2 );
@@ -138,10 +136,7 @@ public class PlayerScript : MonoBehaviour {
       theScale *= thrust;
       t.transform.localScale = theScale;
 
-    } else {
-      if( energy < energyMax)
-        energy += 5;
-    }
+    } 
 
     rigidbody2D.velocity = new Vector2 (dx , dy );
 
@@ -149,9 +144,10 @@ public class PlayerScript : MonoBehaviour {
 
     
     fire_count++;
-    if( fire && fire_count >= firedelay*60  )
-      {
-
+    if( fire_count >= firedelay*60) {
+     
+      if( fire && energy >= 10 ) {
+        energy -= 10;
         fire_count = 0;
         for( int i = -1; i <= 1; i++ )
           {
@@ -171,9 +167,12 @@ public class PlayerScript : MonoBehaviour {
             t.rigidbody2D.velocity = pvel + rigidbody2D.velocity;
             
           }
-
-        
+      } else {
+        if( energy < energyMax)
+          energy += 5;
       }
+        
+    }
 
     /* bounding box logic
     Vector3 pos = rigidbody2D.position;
