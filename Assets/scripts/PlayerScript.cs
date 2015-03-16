@@ -14,7 +14,8 @@ public class PlayerScript : MonoBehaviour {
   public Transform projectile;
   public Transform star;
   public Transform path;
-
+  public Transform ammo;
+  
   public float friction;
 
   private Sprite[] sprite_array;
@@ -46,6 +47,16 @@ public class PlayerScript : MonoBehaviour {
 
         o.rigidbody2D.velocity = new Vector2( (float)UnityEngine.Random.value-.5f,
                                               (float)UnityEngine.Random.value-.5f );
+      }
+
+    for( int i = 0; i < 100; i++)
+      {
+        float a = UnityEngine.Random.value*400-200;
+        float b = UnityEngine.Random.value*400-200;
+        float c = -1;
+
+        Transform o = (Transform)Instantiate( ammo, new Vector3(a, b, c), transform.rotation);
+
       }
 
 	}
@@ -106,8 +117,8 @@ public class PlayerScript : MonoBehaviour {
 
     Instantiate( path, transform.position, transform.rotation );
 
-    if( thrust > 0 && energy > 5){
-      energy -= 5;
+    if( thrust > 0 && energy > 100){
+      energy -= 10;
       dx += thrust*(float)Math.Cos(rads)/2;
       dy += thrust*(float)Math.Sin(rads)/2;// - 1.5f;
       Transform t = (Transform)Instantiate( exhaust, transform.position, transform.rotation );
@@ -120,7 +131,7 @@ public class PlayerScript : MonoBehaviour {
 
     } else {
       if( energy < 1000)
-        energy += 1;
+        energy += 5;
     }
 
     rigidbody2D.velocity = new Vector2 (dx , dy );
