@@ -26,8 +26,9 @@ public class BugHole : MonoBehaviour {
 	void FixedUpdate () {
 	
     float score = (float)hud.score;
-    
-    accumulator += 1;
+
+    if( player )
+      accumulator += 1;
 
     if( accumulator >= 60*rate )
       {

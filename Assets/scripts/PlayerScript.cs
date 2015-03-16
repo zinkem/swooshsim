@@ -25,14 +25,16 @@ public class PlayerScript : MonoBehaviour {
   private float orientation;
 
   public int energy;
+  public int energyMax;
 
 	// Use this for initialization
 	void Start () {
     sr = GetComponent<SpriteRenderer>();
     orientation = 0f;
 	  sr.sprite = tilt_0;
-
-    energy = 1000;
+    
+    energyMax = 1000;
+    energy = energyMax;
 
     for( int i = 0; i < 100; i++)
       {
@@ -130,7 +132,7 @@ public class PlayerScript : MonoBehaviour {
       t.transform.localScale = theScale;
 
     } else {
-      if( energy < 1000)
+      if( energy < energyMax)
         energy += 5;
     }
 

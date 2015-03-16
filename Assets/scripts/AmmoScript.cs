@@ -36,7 +36,7 @@ public class AmmoScript : MonoBehaviour {
 
         if(ps)
           {
-            ps.energy += 100;
+            ps.energyMax += 100;
 
           }
 
