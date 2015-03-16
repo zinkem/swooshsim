@@ -26,7 +26,7 @@ public class AmmoScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-    rigidbody2D.velocity = new Vector3 (0,0,0);
+    GetComponent<Rigidbody2D>().velocity = new Vector3 (0,0,0);
 
     if( player ) {
       float currx = transform.position.x;

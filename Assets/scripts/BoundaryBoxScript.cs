@@ -15,28 +15,28 @@ public class BoundaryBoxScript : MonoBehaviour {
     float x = transform.position.x;
     float y = transform.position.y;
     
-    float dx = rigidbody2D.velocity.x;
-    float dy = rigidbody2D.velocity.y;
+    float dx = GetComponent<Rigidbody2D>().velocity.x;
+    float dy = GetComponent<Rigidbody2D>().velocity.y;
 
     if( x > bound ) 
       {
-        rigidbody2D.velocity = new Vector2(-dx, dy);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(-dx, dy);
         x = bound;
       } 
     if ( x <= -bound )
       {
-        rigidbody2D.velocity = new Vector2(-dx, dy);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(-dx, dy);
         x = -bound;
 
       }
     if( y > bound ) 
       {
-        rigidbody2D.velocity = new Vector2(dx, -dy);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(dx, -dy);
         y = bound;
       } 
     if ( y <= -bound )
       {
-        rigidbody2D.velocity = new Vector2(dx, -dy);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(dx, -dy);
         y = -bound;
       }
 

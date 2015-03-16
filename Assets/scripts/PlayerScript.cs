@@ -120,8 +120,8 @@ public class PlayerScript : MonoBehaviour {
     }
 
     float slow = 1-(friction*friction);
-    float dx = slow*rigidbody2D.velocity.x;
-    float dy = slow*rigidbody2D.velocity.y;// - 1.5f;
+    float dx = slow*GetComponent<Rigidbody2D>().velocity.x;
+    float dy = slow*GetComponent<Rigidbody2D>().velocity.y;// - 1.5f;
 
     Instantiate( path, transform.position, transform.rotation );
 
@@ -129,7 +129,7 @@ public class PlayerScript : MonoBehaviour {
       dx += thrust*(float)Math.Cos(rads)/4;
       dy += thrust*(float)Math.Sin(rads)/4;// - 1.5f;
       Transform t = (Transform)Instantiate( exhaust, transform.position, transform.rotation );
-      t.rigidbody2D.velocity = new Vector2 ((float)-Math.Cos(rads)/2,
+      t.GetComponent<Rigidbody2D>().velocity = new Vector2 ((float)-Math.Cos(rads)/2,
                                             (float)-Math.Sin(rads)/2 );
 
       Vector3 theScale = t.transform.localScale;
@@ -138,7 +138,7 @@ public class PlayerScript : MonoBehaviour {
 
     } 
 
-    rigidbody2D.velocity = new Vector2 (dx , dy );
+    GetComponent<Rigidbody2D>().velocity = new Vector2 (dx , dy );
 
 
 
@@ -164,7 +164,7 @@ public class PlayerScript : MonoBehaviour {
             Transform t= (Transform)Instantiate( projectile, 
                                                  ppos,
                                                  transform.rotation );
-            t.rigidbody2D.velocity = pvel + rigidbody2D.velocity;
+            t.GetComponent<Rigidbody2D>().velocity = pvel + GetComponent<Rigidbody2D>().velocity;
             
           }
       } else {

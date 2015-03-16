@@ -22,8 +22,8 @@ public class ParallaxScroller : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-    float dx = origin_x+reference_object.rigidbody2D.position.x*offset_ratio;
-    float dy = origin_y+reference_object.rigidbody2D.position.y*offset_ratio;
+    float dx = origin_x+reference_object.GetComponent<Rigidbody2D>().position.x*offset_ratio;
+    float dy = origin_y+reference_object.GetComponent<Rigidbody2D>().position.y*offset_ratio;
 
     /*
     transform.localScale = new Vector2 (offset_ratio * origin_z,

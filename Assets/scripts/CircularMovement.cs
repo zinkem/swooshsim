@@ -18,7 +18,7 @@ public class CircularMovement : MonoBehaviour {
     float dx = Mathf.Cos(counter);
     float dy = Mathf.Sin(counter);
 
-    rigidbody2D.velocity = new Vector3 ( dx, dy, 0f );
+    GetComponent<Rigidbody2D>().velocity = new Vector3 ( dx, dy, 0f );
     
 	
 	}

@@ -68,7 +68,7 @@ public class BugHole : MonoBehaviour {
         Gravity g = o.GetComponent<Gravity>();
         g.player = player;
 
-        o.rigidbody2D.velocity = new Vector2( (float)UnityEngine.Random.value-.5f,
+        o.GetComponent<Rigidbody2D>().velocity = new Vector2( (float)UnityEngine.Random.value-.5f,
                                               (float)UnityEngine.Random.value-.5f );
       }
 

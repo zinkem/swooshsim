@@ -34,17 +34,17 @@ public class Gravity : MonoBehaviour {
     float fy = disty/mag;
 
 
-    player.rigidbody2D.velocity = player.rigidbody2D.velocity + 
+    player.GetComponent<Rigidbody2D>().velocity = player.GetComponent<Rigidbody2D>().velocity + 
       new Vector2( fx*intensity, fy*intensity );        
 
-    float pspeed =  Mathf.Sqrt( player.rigidbody2D.velocity.x
-                                *player.rigidbody2D.velocity.x +
-                                player.rigidbody2D.velocity.y
-                                * player.rigidbody2D.velocity.y );
+    float pspeed =  Mathf.Sqrt( player.GetComponent<Rigidbody2D>().velocity.x
+                                *player.GetComponent<Rigidbody2D>().velocity.x +
+                                player.GetComponent<Rigidbody2D>().velocity.y
+                                * player.GetComponent<Rigidbody2D>().velocity.y );
 
     if( pspeed > 50 )
       {
-        player.rigidbody2D.velocity = player.rigidbody2D.velocity * 50/pspeed;
+        player.GetComponent<Rigidbody2D>().velocity = player.GetComponent<Rigidbody2D>().velocity * 50/pspeed;
       }
                     
                     

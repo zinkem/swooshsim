@@ -40,9 +40,9 @@ public class FollowObject : MonoBehaviour {
     vely = (vely/magsq)*velocity;
 
     if( magsq > stable_dist)
-      rigidbody2D.velocity = new Vector2 ( velx, vely );        
+      GetComponent<Rigidbody2D>().velocity = new Vector2 ( velx, vely );        
     else
-      rigidbody2D.velocity = rigidbody2D.velocity*.9f;
+      GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity*.9f;
 
     float a;
     float b;
