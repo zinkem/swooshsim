@@ -62,7 +62,7 @@ public class AmmoScript : MonoBehaviour {
         if(ps){
           ps.powcount += 1;
           if( UnityEngine.Random.value < .5 ) {
-            ps.incMaxEnergy(10);
+            ps.incMaxEnergy(100);
           } else {
             ps.incLife(1);
           }

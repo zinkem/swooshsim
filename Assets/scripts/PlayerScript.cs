@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour {
   public Transform star;
   public Transform path;
   public Transform ammo;
+  public Transform gravitron;
   
   public float friction;
 
@@ -31,7 +32,9 @@ public class PlayerScript : MonoBehaviour {
   public float firedelay;
   private int fire_count;
 
+  Transform[] pickup;
 
+  Transform[] gravfield;
 
 	// Use this for initialization
 	void Start () {
@@ -43,6 +46,8 @@ public class PlayerScript : MonoBehaviour {
     energy = energyMax;
     powcount = 0;
 
+    gravfield = new Transform[10];
+    pickup = new Transform[10];
     for( int i = 0; i < 10; i++)
       {
         float a = UnityEngine.Random.value*40-20+transform.position.x;
@@ -56,7 +61,15 @@ public class PlayerScript : MonoBehaviour {
         Gravity gv = o.GetComponent<Gravity>();
         gv.player = this.transform;
 
+        pickup[i] = o;
+
       }
+
+    gravfield = new Transform[10];
+    for( int i = 0; i < 10; i++){
+        Transform o = (Transform)Instantiate( gravitron, transform.position, transform.rotation);
+        gravfield[i] = o;
+    }
 
 	}
   
