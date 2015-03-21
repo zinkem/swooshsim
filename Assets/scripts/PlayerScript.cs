@@ -156,31 +156,33 @@ public class PlayerScript : MonoBehaviour {
     fire_count++;
     if( fire_count >= firedelay*60) {
      
-      if( fire && energy >= 10 ) {
-        energy -= 10;
-        fire_count = 0;
-        for( int i = -1; i <= 1; i++ )
-          {
-            float mod = (i*Mathf.PI/36);
-            float a = (float)Math.Cos(rads+mod)*16;
-            float b = (float)Math.Sin(rads+mod)*16;
+        if( fire ){
+            if( energy >= 10 ) {
+                energy -= 10;
+                fire_count = 0;
+                for( int i = -1; i <= 1; i++ )
+                    {
+                        float mod = (i*Mathf.PI/36);
+                        float a = (float)Math.Cos(rads+mod)*16;
+                        float b = (float)Math.Sin(rads+mod)*16;
 
-            Vector2 pvel = new Vector2(a,b);
+                        Vector2 pvel = new Vector2(a,b);
 
-            Vector3 ppos = new Vector3(Mathf.Cos(rads+(4*mod))/4,
-                                       Mathf.Sin(rads+(4*mod))/4,
-                                       0) + transform.position;
+                        Vector3 ppos = new Vector3(Mathf.Cos(rads+(4*mod))/4,
+                                                   Mathf.Sin(rads+(4*mod))/4,
+                                                   0) + transform.position;
 
-            Transform t= (Transform)Instantiate( projectile, 
-                                                 ppos,
-                                                 transform.rotation );
-            t.GetComponent<Rigidbody2D>().velocity = pvel + GetComponent<Rigidbody2D>().velocity;
+                        Transform t= (Transform)Instantiate( projectile, 
+                                                             ppos,
+                                                             transform.rotation );
+                        t.GetComponent<Rigidbody2D>().velocity = pvel + GetComponent<Rigidbody2D>().velocity;
             
-          }
-      } else {
-        if( energy < energyMax)
-          energy += 5;
-      }
+                    }
+            }
+        } else {
+            if( energy < energyMax)
+                energy += 5;
+        }
         
     }
 
