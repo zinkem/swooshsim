@@ -36,7 +36,7 @@ public class PlayerScript : MonoBehaviour {
 
   Transform[] gravfield;
   private int set;
-
+  
 	// Use this for initialization
 	void Start () {
     sr = GetComponent<SpriteRenderer>();
@@ -66,11 +66,7 @@ public class PlayerScript : MonoBehaviour {
 
       }
 
-    gravfield = new Transform[200];
-    for( int i = 0; i < 200; i++){
-        Transform o = (Transform)Instantiate( gravitron, transform.position, transform.rotation);
-        gravfield[i] = o;
-    }
+    gravfield = new Transform[600];
 
 	}
   
@@ -188,8 +184,8 @@ public class PlayerScript : MonoBehaviour {
         
     }
 
-    set = (set + 1)%200;
-    for( int i = 0; i < 200; i++){
+    set = (set + 1)%gravfield.Length;
+    for( int i = 0; i < gravfield.Length; i++){
         GameObject grav;
 
         gravfield[set] = null;
@@ -200,6 +196,9 @@ public class PlayerScript : MonoBehaviour {
         } else {
             Transform o = (Transform)Instantiate( gravitron, transform.position, transform.rotation);
 
+            o.position = transform.position
+                + new Vector3 ( Mathf.Sin(1+i*1.61f), Mathf.Cos(1+i*1.61f), 0);
+            
             o.GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + new Vector2 ( Mathf.Sin(i*.628f), Mathf.Cos(i*.628f));
             gravfield[i] = o;
             grav = o.gameObject;
