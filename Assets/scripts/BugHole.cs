@@ -27,7 +27,9 @@ public class BugHole : MonoBehaviour {
   {
     float score = (float)hud.score;
 
-    while( census <= wavepop * Mathf.Ceil((score+1)/5000) ) {
+    float wavesize = wavepop * Mathf.Log((score/10)+1, 32);
+    
+    while( census <= wavesize ) {
 
       float rads = census*Mathf.PI/180;
       rads *= 15;
@@ -55,9 +57,9 @@ public class BugHole : MonoBehaviour {
     
     for( int i = 0; i < wavepop/4; i++)
       {
-        float a = Mathf.Cos(UnityEngine.Random.value*Mathf.PI*2)*10
+        float a = Mathf.Cos(UnityEngine.Random.value*Mathf.PI*2)*15
           +player.transform.position.x;
-        float b = Mathf.Sin(UnityEngine.Random.value*Mathf.PI*2)*10
+        float b = Mathf.Sin(UnityEngine.Random.value*Mathf.PI*2)*15
           +player.transform.position.y;
 
         Transform o = (Transform)Instantiate( star, new Vector3(a, b, -1f), transform.rotation);
@@ -70,6 +72,10 @@ public class BugHole : MonoBehaviour {
 
         o.GetComponent<Rigidbody2D>().velocity = new Vector2( (float)UnityEngine.Random.value-.5f,
                                               (float)UnityEngine.Random.value-.5f );
+
+        KillMutateOnCollide km = o.GetComponent<KillMutateOnCollide>();
+        km.hud = hud;            
+        
       }
 
   }

@@ -16,7 +16,7 @@ public class PlayerScript : MonoBehaviour {
   public Transform path;
   public Transform ammo;
   public Transform gravitron;
-  
+
   public float friction;
 
   private Sprite[] sprite_array;
@@ -47,6 +47,8 @@ public class PlayerScript : MonoBehaviour {
     energy = energyMax;
     powcount = 0;
     set = 0;
+
+    gravfield = new Transform[600];
     
     pickup = new Transform[10];
     for( int i = 0; i < 10; i++)
@@ -65,8 +67,6 @@ public class PlayerScript : MonoBehaviour {
         pickup[i] = o;
 
       }
-
-    gravfield = new Transform[600];
 
 	}
   
