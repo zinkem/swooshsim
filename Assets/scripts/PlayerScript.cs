@@ -35,6 +35,7 @@ public class PlayerScript : MonoBehaviour {
   Transform[] pickup;
 
   Transform[] gravfield;
+  private int set;
 
 	// Use this for initialization
 	void Start () {
@@ -45,8 +46,8 @@ public class PlayerScript : MonoBehaviour {
     energyMax = 1000;
     energy = energyMax;
     powcount = 0;
-
-    gravfield = new Transform[10];
+    set = 0;
+    
     pickup = new Transform[10];
     for( int i = 0; i < 10; i++)
       {
@@ -65,8 +66,8 @@ public class PlayerScript : MonoBehaviour {
 
       }
 
-    gravfield = new Transform[10];
-    for( int i = 0; i < 10; i++){
+    gravfield = new Transform[200];
+    for( int i = 0; i < 200; i++){
         Transform o = (Transform)Instantiate( gravitron, transform.position, transform.rotation);
         gravfield[i] = o;
     }
@@ -187,6 +188,60 @@ public class PlayerScript : MonoBehaviour {
         
     }
 
+    set = (set + 1)%200;
+    for( int i = 0; i < 200; i++){
+        GameObject grav;
+
+        gravfield[set] = null;
+
+        
+        if( gravfield[i] ){
+            grav = gravfield[i].gameObject;
+        } else {
+            Transform o = (Transform)Instantiate( gravitron, transform.position, transform.rotation);
+
+            o.GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + new Vector2 ( Mathf.Sin(i*.628f), Mathf.Cos(i*.628f));
+            gravfield[i] = o;
+            grav = o.gameObject;
+        }
+
+        for( int j = 0; j < 10; j++){
+            GameObject a = pickup[j].gameObject; 
+
+            
+            float wellx = a.transform.position.x;
+            float welly = a.transform.position.y;
+
+            float distx = wellx - grav.transform.position.x; 
+            float disty = welly - grav.transform.position.y; 
+    
+            float mag = distx*distx + disty*disty;
+            float magsqrt = Mathf.Sqrt(mag);
+
+            mag = mag * magsqrt;
+
+            float fx = distx/mag;
+            float fy = disty/mag;
+            float intensity = a.GetComponent<Gravity>().intensity;
+
+            grav.GetComponent<Rigidbody2D>().velocity = grav.GetComponent<Rigidbody2D>().velocity + 
+                new Vector2( fx*intensity, fy*intensity );        
+        }
+        /*
+        float pspeed =  Mathf.Sqrt( grav.GetComponent<Rigidbody2D>().velocity.x
+                                    *grav.GetComponent<Rigidbody2D>().velocity.x +
+                                    grav.GetComponent<Rigidbody2D>().velocity.y
+                                    * grav.GetComponent<Rigidbody2D>().velocity.y );
+
+        if( pspeed > 50 )
+            {
+                grav.GetComponent<Rigidbody2D>().velocity = grav.GetComponent<Rigidbody2D>().velocity * 50/pspeed;
+            }
+        */
+
+    }
+
+    
     /* bounding box logic
     Vector3 pos = rigidbody2D.position;
 
